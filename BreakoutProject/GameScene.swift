@@ -32,15 +32,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         createBackground()
         
         makePaddle()
-        
-        makeBall()
-        
+                
         makeBrick()
         
         makeLoseZone()
-        
-        ball.physicsBody?.applyImpulse(CGVector(dx: 5, dy: 5)) //This puts the ball into motion
-        
         
     }
     
@@ -90,7 +85,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     func createBackground()
     {
         
-        let stars = SKTexture(imageNamed: "starsBackground")
+        let stars = SKTexture(imageNamed: "stars")
         
         for i in 0...1
         {
@@ -151,8 +146,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         ball.physicsBody?.affectedByGravity = false
         
         ball.physicsBody?.contactTestBitMask = (ball.physicsBody?.collisionBitMask)!
-        
-        
+                
         addChild(ball)
         
     }
@@ -227,8 +221,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             makeBrick()
             makeBall()
             bricksCount = maxi * maxi
-            ball.physicsBody?.applyImpulse(CGVector(dx: 5, dy: 5))
-            
         }
     }
     

@@ -12,6 +12,10 @@ import GameplayKit
 
 class GameViewController: UIViewController {
     
+    @IBOutlet weak var beginButton: UIButton!
+    
+    var gameSceneObject = GameScene()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,7 +36,8 @@ class GameViewController: UIViewController {
         }
     }
     
-    override var shouldAutorotate: Bool {
+    override var shouldAutorotate: Bool
+    {
         return true
     }
     
@@ -44,12 +49,13 @@ class GameViewController: UIViewController {
         }
     }
 
-   
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
+    @IBAction func beginButtonPressed(_ sender: Any)
+    {
+        
+        gameSceneObject.makeBall()
+        beginButton.isHidden = true
     }
-    
+
     override var prefersStatusBarHidden: Bool {
         return true
     }
