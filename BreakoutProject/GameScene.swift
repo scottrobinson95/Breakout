@@ -5,6 +5,14 @@
 //  Created by Srobinson1 on 3/16/17.
 //  Copyright © 2017 Srobinson1. All rights reserved.
 //
+//MVP: ​As a user, I want a game that follows the same rules as Breakout. There needs to be multiple column/row format
+//which span the width of the screen. The game should begin when a button is pushed. The ball should be given a push and
+//the ball should bounce off sides and the paddle. When the ball hits a Block, the Block should be removed from the screen.
+//Stretch #1: ​As a user, I want to display a message when the level is complete or 3 balls have been lost.
+//Stretch #2: ​As a user, I want to display the number of lives/balls and a score for the game
+//Stretch #3: ​As a user, I want to create a better UI experience. This may include animations, images in place of SKNode
+//shapes, sound, etc.
+//Stretch #4:​ As a user, I want multiple levels, different block patterns, multiple balls, increased speed, etc.
 
 import SpriteKit
 import GameplayKit
@@ -20,9 +28,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     let startLabel = SKLabelNode()
     
+    let ballCountLabel = SKLabelNode()
+    
     var maxi = 3
     
     var bricksCount = 9
+    
+    var ballCount = 3
     
     var ballReset = true
     
@@ -34,7 +46,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         //Constraint around edge of view so that ball doesn't fall off of the screen
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
-                
+        
         makePaddle()
         
         makeBall()
@@ -43,11 +55,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         makeLoseZone()
         
-        startLabel.text = "Touch the Paddle to Start"
-        startLabel.fontSize = 20
-        startLabel.position = CGPoint(x: frame.midX, y: frame.midY+100)
-        startLabel.fontColor = UIColor.white
-        addChild(startLabel)
+        makeLabel(labelName: startLabel, labelText: "Touch Paddle to Start", labelFontSize: 30, labelFontColor: UIColor.white, labelPosition: CGPoint(x: frame.midX, y: frame.minY + 75))
+        makeLabel(labelName: ballCountLabel, labelText: "Balls: \(ballCount)", labelFontSize: 30, labelFontColor: UIColor.white, labelPosition: CGPoint(x: frame.midX + 100, y: frame.minY + 75))
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
@@ -101,6 +111,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         else if contact.bodyA.node?.name == "loseZone" || contact.bodyB.node?.name == "loseZone"
         {
             print("You Lose")
+            ballCount -= 1
+            removeChildren(in: nodes(at: ball.position))
+            makeBall()
+            ballReset = true
         }
     }
     
@@ -234,6 +248,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         addChild(loseZone)
         
     }
+    
+    func makeLabel(labelName: SKLabelNode,labelText: String, labelFontSize: CGFloat, labelFontColor: UIColor, labelPosition: CGPoint)
+    {
+        
+        labelName.text = labelText
+        labelName.fontSize = labelFontSize
+        labelName.position = labelPosition
+        labelName.fontColor = labelFontColor
+        
+        addChild(labelName)
+    }
+    
     func checkBricks()
     {
         if bricksCount == 0
