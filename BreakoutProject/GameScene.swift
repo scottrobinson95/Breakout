@@ -34,9 +34,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         
         //Constraint around edge of view so that ball doesn't fall off of the screen
         self.physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
-        
-        createBackground()
-        
+                
         makePaddle()
         
         makeBall()
