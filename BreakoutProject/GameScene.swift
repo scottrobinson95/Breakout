@@ -18,9 +18,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     var brick: SKSpriteNode!
     
+    let startLabel = SKLabelNode()
+    
     var maxi = 3
     
     var bricksCount = 9
+    
+    var ballReset = true
+    
+    var viewControllerObject = GameViewController()
     
     override func didMove(to view: SKView)
     {
@@ -32,11 +38,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         createBackground()
         
         makePaddle()
-                
+        
+        makeBall()
+        
         makeBrick()
         
         makeLoseZone()
         
+        startLabel.text = "Touch the Paddle to Start"
+        startLabel.fontSize = 20
+        startLabel.position = CGPoint(x: frame.midX, y: frame.midY+100)
+        startLabel.fontColor = UIColor.white
+        addChild(startLabel)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
@@ -47,6 +60,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             
             paddle.position.x = location.x
         }
+        if ballReset == true
+        {
+            ball.physicsBody?.applyImpulse(CGVector(dx: 5, dy: 5))
+            ballReset = false
+        }
+        startLabel.isHidden = true
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)
@@ -56,6 +75,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             let location = touch.location(in: self)
             
             paddle.position.x = location.x
+        }
+        if ballReset == true
+        {
+            ball.physicsBody?.applyImpulse(CGVector(dx: 5, dy: 5))
+            ballReset = false
         }
     }
     
@@ -221,6 +245,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             makeBrick()
             makeBall()
             bricksCount = maxi * maxi
+            ballReset = true
         }
     }
     
