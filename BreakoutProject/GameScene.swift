@@ -127,6 +127,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             makeBall()
             ballReset = true
             ballCountLabel.text = "Balls: \(ballCount)"
+            checkGameOver()
         }
     }
     
@@ -284,9 +285,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             ballReset = true
         }
         bricksDestroyedLabel.text = "Bricks Destroyed: \(bricksDestroyed)"
-
     }
     
-    
-    
+    func checkGameOver()
+    {
+        if ballCount == 0
+        {
+            let gameOverAlert = UIAlertController(title: "Game Over", message: "Score: \(bricksDestroyed)", preferredStyle: UIAlertControllerStyle.alert)
+            let resetButton = UIAlertAction(title: "Restart?", style: UIAlertActionStyle.default, handler:
+                {(sender) in
+                    self.ballCount = 3
+                    self.ballCountLabel.text = "Balls: \(self.ballCount)"
+                    self.bricksDestroyed = 0
+                    self.bricksDestroyedLabel.text = "Bricks Destroyed: \(self.bricksDestroyed)"
+                    self.ballReset = true
+                    self.maxi = 3
+                    self.startLabel.isHidden = false
+                    self.bricksDestroyedLabel.isHidden = true
+                    self.ballCountLabel.isHidden = true
+                    self.removeAllChildren()
+                    self.makePaddle()
+                    self.makeBall()
+                    self.makeBrick()
+                    self.makeLoseZone()
+                    
+            })
+            gameOverAlert.addAction(resetButton)
+        }
+    }
 }
