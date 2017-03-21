@@ -30,6 +30,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     let ballCountLabel = SKLabelNode()
     
+    let bricksDestroyedLabel = SKLabelNode()
+    
     var maxi = 3
     
     var bricksCount = 9
@@ -37,6 +39,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var ballCount = 3
     
     var ballReset = true
+    
+    var bricksDestroyed = 0
     
     var viewControllerObject = GameViewController()
     
@@ -56,7 +60,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         makeLoseZone()
         
         makeLabel(labelName: startLabel, labelText: "Touch Paddle to Start", labelFontSize: 30, labelFontColor: UIColor.white, labelPosition: CGPoint(x: frame.midX, y: frame.minY + 75))
-        makeLabel(labelName: ballCountLabel, labelText: "Balls: \(ballCount)", labelFontSize: 30, labelFontColor: UIColor.white, labelPosition: CGPoint(x: frame.midX + 100, y: frame.minY + 75))
+        makeLabel(labelName: ballCountLabel, labelText: "Balls: \(ballCount)", labelFontSize: 30, labelFontColor: UIColor.white, labelPosition: CGPoint(x: frame.minX + 50, y: frame.minY + 80))
+        makeLabel(labelName: bricksDestroyedLabel, labelText: "Bricks Destroyed: \(bricksDestroyed)", labelFontSize: 30, labelFontColor: UIColor.white, labelPosition: CGPoint(x: frame.minX + 124, y: frame.minY + 55))
+        ballCountLabel.isHidden = true
+        bricksDestroyedLabel.isHidden = true
         
     }
     
@@ -70,10 +77,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         }
         if ballReset == true
         {
-            ball.physicsBody?.applyImpulse(CGVector(dx: 5, dy: 5))
+            ball.physicsBody?.applyImpulse(CGVector(dx: maxi, dy: maxi))
             ballReset = false
         }
         startLabel.isHidden = true
+        ballCountLabel.isHidden = false
+        bricksDestroyedLabel.isHidden = false
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)
@@ -86,7 +95,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         }
         if ballReset == true
         {
-            ball.physicsBody?.applyImpulse(CGVector(dx: 5, dy: 5))
+            ball.physicsBody?.applyImpulse(CGVector(dx: maxi, dy: maxi))
             ballReset = false
         }
     }
@@ -99,6 +108,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             print("brick hit")
             removeChildren(in: nodes(at: (contact.bodyA.node?.position)!))
             bricksCount -= 1
+            bricksDestroyed += 1
             checkBricks()
         }
         else if contact.bodyB.node?.name == "brick"
@@ -106,6 +116,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             print("brick hit")
             removeChildren(in: nodes(at: (contact.bodyB.node?.position)!))
             bricksCount -= 1
+            bricksDestroyed += 1
             checkBricks()
         }
         else if contact.bodyA.node?.name == "loseZone" || contact.bodyB.node?.name == "loseZone"
@@ -115,6 +126,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             removeChildren(in: nodes(at: ball.position))
             makeBall()
             ballReset = true
+            ballCountLabel.text = "Balls: \(ballCount)"
         }
     }
     
@@ -271,6 +283,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             bricksCount = maxi * maxi
             ballReset = true
         }
+        bricksDestroyedLabel.text = "Bricks Destroyed: \(bricksDestroyed)"
+
     }
     
     
