@@ -299,14 +299,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     self.bricksDestroyedLabel.text = "Bricks Destroyed: \(self.bricksDestroyed)"
                     self.ballReset = true
                     self.maxi = 3
-                    self.startLabel.isHidden = false
-                    self.bricksDestroyedLabel.isHidden = true
-                    self.ballCountLabel.isHidden = true
                     self.removeAllChildren()
                     self.makePaddle()
                     self.makeBall()
                     self.makeBrick()
                     self.makeLoseZone()
+                    self.makeLabel(labelName: self.startLabel, labelText: "Touch Paddle to Start", labelFontSize: 30, labelFontColor: UIColor.white, labelPosition: CGPoint(x: self.frame.midX, y: self.frame.minY + 75))
+                    self.makeLabel(labelName: self.ballCountLabel, labelText: "Balls: \(self.ballCount)", labelFontSize: 30, labelFontColor: UIColor.white, labelPosition: CGPoint(x: self.frame.minX + 50, y: self.frame.minY + 80))
+                    self.makeLabel(labelName: self.bricksDestroyedLabel, labelText: "Bricks Destroyed: \(self.bricksDestroyed)", labelFontSize: 30, labelFontColor: UIColor.white, labelPosition: CGPoint(x: self.frame.minX + 124, y: self.frame.minY + 55))
+                    self.startLabel.isHidden = false
+                    self.bricksDestroyedLabel.isHidden = true
+                    self.ballCountLabel.isHidden = true
                     
             })
             gameOverAlert.addAction(resetButton)
