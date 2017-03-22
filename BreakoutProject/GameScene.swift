@@ -42,7 +42,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     var bricksDestroyed = 0
     
-    var viewControllerObject = GameViewController()
     
     override func didMove(to view: SKView)
     {
@@ -311,6 +310,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     
             })
             gameOverAlert.addAction(resetButton)
+            self.view?.window?.rootViewController?.present(gameOverAlert, animated: true, completion: nil)
         }
     }
 }
