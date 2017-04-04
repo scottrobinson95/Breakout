@@ -34,7 +34,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     let bricksDestroyedLabel = SKLabelNode()
     
-    var maxi = 3
+    var maxi = 13
     
     var bricksCount = 9
     
@@ -243,9 +243,43 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 let ww : CGFloat = CGFloat(w)
                 let maxiFloat : CGFloat = CGFloat(maxi)
                 
-                brick = SKSpriteNode(imageNamed: "Brick")
+                switch h {
+                case 1:
+                    brick = SKSpriteNode(color: UIColor.purple, size: CGSize(width: frame.width/maxiFloat-1, height: 19))
+                case 2:
+                    brick = SKSpriteNode(color: UIColor.purple, size: CGSize(width: frame.width/maxiFloat-1, height: 19))
+                case 3:
+                    brick = SKSpriteNode(color: UIColor.magenta, size: CGSize(width: frame.width/maxiFloat-1, height: 19))
+                case 4:
+                    brick = SKSpriteNode(color: UIColor.magenta, size: CGSize(width: frame.width/maxiFloat-1, height: 19))
+                case 5:
+                    brick = SKSpriteNode(color: UIColor.blue, size: CGSize(width: frame.width/maxiFloat-1, height: 19))
+                case 6:
+                    brick = SKSpriteNode(color: UIColor.blue, size: CGSize(width: frame.width/maxiFloat-1, height: 19))
+                case 7:
+                    brick = SKSpriteNode(color: UIColor.green, size: CGSize(width: frame.width/maxiFloat-1, height: 19))
+                case 8:
+                    brick = SKSpriteNode(color: UIColor.green, size: CGSize(width: frame.width/maxiFloat-1, height: 19))
+                case 9:
+                    brick = SKSpriteNode(color: UIColor.yellow, size: CGSize(width: frame.width/maxiFloat-1, height: 19))
+                case 10:
+                    brick = SKSpriteNode(color: UIColor.yellow, size: CGSize(width: frame.width/maxiFloat-1, height: 19))
+                case 11:
+                    brick = SKSpriteNode(color: UIColor.orange, size: CGSize(width: frame.width/maxiFloat-1, height: 19))
+                case 12:
+                    brick = SKSpriteNode(color: UIColor.orange, size: CGSize(width: frame.width/maxiFloat-1, height: 19))
+                case 13:
+                    brick = SKSpriteNode(color: UIColor.red, size: CGSize(width: frame.width/maxiFloat-1, height: 19))
+                case 14:
+                    brick = SKSpriteNode(color: UIColor.red, size: CGSize(width: frame.width/maxiFloat-1, height: 19))
+
+
+
+
+                default:
+                    break
+                }
                 
-                brick.size = CGSize(width: frame.width/maxiFloat, height: 20)
                 
                 //Set the location of the brick
                 
