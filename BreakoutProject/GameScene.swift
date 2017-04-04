@@ -22,6 +22,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     var ball: SKSpriteNode!
     
+    var ball2: SKSpriteNode!
+    
     var paddle: SKSpriteNode!
     
     var brick: SKSpriteNode!
@@ -105,7 +107,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         if contact.bodyA.node?.name == "brick"
         {
             print("brick hit")
-            removeChildren(in: nodes(at: (contact.bodyA.node?.position)!))
+            contact.bodyA.node?.removeFromParent()
             bricksCount -= 1
             bricksDestroyed += 1
             checkBricks()
@@ -113,7 +115,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         else if contact.bodyB.node?.name == "brick"
         {
             print("brick hit")
-            removeChildren(in: nodes(at: (contact.bodyB.node?.position)!))
+            contact.bodyB.node?.removeFromParent()
             bricksCount -= 1
             bricksDestroyed += 1
             checkBricks()
@@ -167,7 +169,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     {
         let ballDiameter = frame.width / 20
         
-        ball = SKSpriteNode(color: UIColor.green, size: CGSize(width: ballDiameter, height: ballDiameter))
+        ball = SKSpriteNode(imageNamed: "Ball")
+        
+        ball.size = CGSize(width: ballDiameter, height: ballDiameter)
         
         ball.position = CGPoint(x: frame.midX, y: frame.minY + 150)
         
@@ -194,17 +198,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         ball.physicsBody?.affectedByGravity = false
         
         ball.physicsBody?.contactTestBitMask = (ball.physicsBody?.collisionBitMask)!
+        
                 
         addChild(ball)
-        
+//        if maxi >= 4
+//        {
+//            ball2 = SKSpriteNode(imageNamed: "Ball2")
+//            
+//            ball2 = ball
+//            
+//            ball2.position = CGPoint(x: frame.midX+30, y: frame.minY+150)
+//            
+//            ball2.name = "ball2"
+//            
+//            addChild(ball2)
+//        }
     }
     
+
     
     
     func makePaddle()
     {
         
-        paddle = SKSpriteNode(color: UIColor.green, size: CGSize(width: frame.width/4, height: frame.height/25))
+        paddle = SKSpriteNode(imageNamed: "Paddle")
+        paddle.size = CGSize(width: frame.width/4, height: frame.height/25)
         paddle.position = CGPoint(x: frame.midX, y: frame.minY+125)
         paddle.name = "paddle"
         paddle.physicsBody = SKPhysicsBody(rectangleOf: paddle.size)
@@ -225,7 +243,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 let ww : CGFloat = CGFloat(w)
                 let maxiFloat : CGFloat = CGFloat(maxi)
                 
-                brick = SKSpriteNode(color: UIColor.green, size: CGSize(width: frame.width/maxiFloat, height: frame.height/25))
+                brick = SKSpriteNode(imageNamed: "Brick")
+                
+                brick.size = CGSize(width: frame.width/maxiFloat, height: frame.height/25)
                 
                 //Set the location of the brick
                 
@@ -246,8 +266,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     func makeLoseZone()
     {
         
-        let loseZone = SKSpriteNode(color: UIColor.red, size: CGSize(width: frame.width, height: 50))
-        
+        let loseZone = SKSpriteNode(imageNamed: "Waves")
+        loseZone.size = CGSize(width: frame.width, height: 50)
+
         //Set the location of the Lose Zone
         loseZone.position = CGPoint(x: frame.midX, y: frame.minY + 25)
         
