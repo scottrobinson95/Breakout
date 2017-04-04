@@ -245,11 +245,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 
                 brick = SKSpriteNode(imageNamed: "Brick")
                 
-                brick.size = CGSize(width: frame.width/maxiFloat, height: frame.height/25)
+                brick.size = CGSize(width: frame.width/maxiFloat, height: 20)
                 
                 //Set the location of the brick
                 
-                brick.position = CGPoint(x: frame.minX + (2 * ww - 1) * (frame.maxX / maxiFloat), y: frame.maxY - 30 * hh)
+                brick.position = CGPoint(x: frame.minX + (2 * ww - 1) * (frame.maxX / maxiFloat), y: frame.maxY - 40 - 20 * hh)
                 
                 brick.name = "brick"
                 
