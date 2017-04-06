@@ -34,7 +34,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     let bricksDestroyedLabel = SKLabelNode()
     
-    var maxi = 13
+    var maxi = 3
     
     var bricksCount = 9
     
@@ -354,6 +354,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     self.bricksDestroyedLabel.text = "Bricks Destroyed: \(self.bricksDestroyed)"
                     self.ballReset = true
                     self.maxi = 3
+                    self.bricksCount = 9
                     self.removeAllChildren()
                     self.makePaddle()
                     self.makeBall()
